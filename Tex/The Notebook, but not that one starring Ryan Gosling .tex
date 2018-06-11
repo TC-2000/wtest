@@ -1,0 +1,902 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{The Notebook, but not that one starring Ryan Gosling }
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{figure}
+\centering
+\includegraphics{Pictures/Adele-Hello.jpg}
+\caption{hello}
+\end{figure}
+
+    \section{Topics}\label{topics}
+
+\begin{itemize}
+\tightlist
+\item
+  Data Presentation
+\item
+  Visualization
+\item
+  Optimization
+\item
+  Machine Learning
+\item
+  Misc.
+\end{itemize}
+
+    \section{Data Visualization}\label{data-visualization}
+
+\subsection{This is a Jupyter Notebook with RISE
+functionality}\label{this-is-a-jupyter-notebook-with-rise-functionality}
+
+\begin{figure}
+\centering
+\includegraphics{Pictures/jupyter.png}
+\caption{jupyter}
+\end{figure}
+
+    \subsubsection{You might have noticed I'm running this in my browser.
+And yes, that does mean I can run it off a server (internal or external)
+and show off results to other
+people.}\label{you-might-have-noticed-im-running-this-in-my-browser.-and-yes-that-does-mean-i-can-run-it-off-a-server-internal-or-external-and-show-off-results-to-other-people.}
+
+\begin{figure}
+\centering
+\includegraphics{Pictures/browser.jpg}
+\caption{browser}
+\end{figure}
+
+    \subsubsection{Jupyter is nice in that it allows for multiple
+programming languages. It's name is a portmanteau of Julia, Python and
+R. I use Python, but it normally looks like
+this:}\label{jupyter-is-nice-in-that-it-allows-for-multiple-programming-languages.-its-name-is-a-portmanteau-of-julia-python-and-r.-i-use-python-but-it-normally-looks-like-this}
+
+\begin{figure}
+\centering
+\includegraphics{Pictures/Spyder.jpg}
+\caption{spyder}
+\end{figure}
+
+    Python has a lot of useful interactions with other programming languages
+that could be Hatch relevant
+
+\begin{itemize}
+\tightlist
+\item
+  SQL is the most obvious one. I can pull results from queries directly
+  into Pandas dataframes for analysis
+\item
+  It also supports JS, so I could in theory run the D3.js libraries
+  directly out of this for really nice visuals
+\item
+  It is possible to generate HTML with Python as well
+\item
+  Python programs can be made into applications which can be run on
+  servers (e.g. live reporting)
+\end{itemize}
+
+    Python has several cool visualization tools
+
+\begin{itemize}
+\tightlist
+\item
+  Matplotlib
+\item
+  Seaborn
+\item
+  Bokeh
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}Here\PYZsq{}s a fairly basic matplotlib histogram. This is live code.}
+        \PY{c+c1}{\PYZsh{}This is just setup to get data in}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{n}{id\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C:/Users/Perry/.spyder\PYZhy{}py3/indeed\PYZus{}hw\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{cols} \PY{o}{=} \PY{n}{id\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+        \PY{n}{colct} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{cols}\PY{p}{)}\PY{p}{)}
+        \PY{n}{nancol} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{}missing revenue the same as zero    }
+        \PY{n}{id\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{id\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{id\PYZus{}age\PYZus{}ex} \PY{o}{=} \PY{n}{id\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{id\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{id\PYZus{}age\PYZus{}ex\PYZus{}sub} \PY{o}{=} \PY{n}{id\PYZus{}age\PYZus{}ex}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{id\PYZus{}age\PYZus{}ex}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{]}  
+        \PY{c+c1}{\PYZsh{}limit to only zero age    }
+        \PY{n}{id\PYZus{}age\PYZus{}ex} \PY{o}{=} \PY{n}{id\PYZus{}age\PYZus{}ex}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{id\PYZus{}age\PYZus{}ex}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{id\PYZus{}df} \PY{o}{=} \PY{n}{id\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{id\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{id\PYZus{}df} \PY{o}{=} \PY{n}{id\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{id\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{3500000000}\PY{p}{]}
+            
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}Now I can draw the figure }
+        \PY{n}{num\PYZus{}bins} \PY{o}{=} \PY{l+m+mi}{100}
+        \PY{n}{gdt} \PY{o}{=} \PY{n}{id\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{id\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{gdt} \PY{o}{=} \PY{n}{gdt}\PY{p}{[}\PY{n}{gdt} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{150000000}\PY{p}{]}
+        \PY{n}{n}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{gdt}\PY{p}{,} \PY{n}{num\PYZus{}bins}\PY{p}{,} \PY{n}{density} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ticklabel\PYZus{}format}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{plain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scilimits}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Revenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mf}{18.5}\PY{p}{,} \PY{l+m+mf}{10.5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{The Notebook, but not that one starring Ryan Gosling _files/The Notebook, but not that one starring Ryan Gosling _8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}We can quickly make this look nicer with Seaborn styles}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+        \PY{n}{n}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{gdt}\PY{p}{,} \PY{n}{num\PYZus{}bins}\PY{p}{,} \PY{n}{density} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Revenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mf}{18.5}\PY{p}{,} \PY{l+m+mf}{10.5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{The Notebook, but not that one starring Ryan Gosling _files/The Notebook, but not that one starring Ryan Gosling _9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}It can be used to create some really nice looking visualizations}
+        \PY{c+c1}{\PYZsh{}This is an example from their site (again this is live code)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rc}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{axes.facecolor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{rs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{l+m+mi}{1979}\PY{p}{)}
+        \PY{n}{x} \PY{o}{=} \PY{n}{rs}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{500}\PY{p}{)}
+        \PY{n}{g} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tile}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ABCDEFGHIJ}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{x}\PY{p}{,} \PY{n}{g}\PY{o}{=}\PY{n}{g}\PY{p}{)}\PY{p}{)}
+        \PY{n}{m} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{g}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n+nb}{ord}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{m}
+        \PY{n}{pal} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{cubehelix\PYZus{}palette}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{rot}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{25}\PY{p}{,} \PY{n}{light}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{)}
+        \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{FacetGrid}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{row}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{n}{pal}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{clip\PYZus{}on}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{shade}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{n}{bw}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{clip\PYZus{}on}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{w}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{bw}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{clip\PYZus{}on}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{k}{def} \PY{n+nf}{label}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{color}\PY{p}{,} \PY{n}{label}\PY{p}{)}\PY{p}{:}
+            \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{,} 
+                    \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{transform}\PY{o}{=}\PY{n}{ax}\PY{o}{.}\PY{n}{transAxes}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{25}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{set\PYZus{}titles}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{yticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{n}{bottom}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} <seaborn.axisgrid.FacetGrid at 0x28f13269668>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{The Notebook, but not that one starring Ryan Gosling _files/The Notebook, but not that one starring Ryan Gosling _10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Bokeh is the one you'll be most interested in. It allows for
+the same sort of interactivity that D3.js does, but is in Python. I'd
+have to learn this, but it's a small lift since I do a lot of Python
+anyway}\label{bokeh-is-the-one-youll-be-most-interested-in.-it-allows-for-the-same-sort-of-interactivity-that-d3.js-does-but-is-in-python.-id-have-to-learn-this-but-its-a-small-lift-since-i-do-a-lot-of-python-anyway}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}Here\PYZsq{}s an example from their site}
+        
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{output\PYZus{}notebook}
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{figure}\PY{p}{,} \PY{n}{show}
+        
+        \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{4000}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{n}{N}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{n}{N}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+        \PY{n}{radii} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{n}{N}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{1.5}
+        \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}}\PY{l+s+si}{\PYZpc{}02x}\PY{l+s+si}{\PYZpc{}02x}\PY{l+s+si}{\PYZpc{}02x}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{g}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{150}\PY{p}{)} \PY{k}{for} \PY{n}{r}\PY{p}{,} \PY{n}{g} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{l+m+mi}{50}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{l+m+mi}{30}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+        
+        \PY{n}{output\PYZus{}notebook}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{p}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{radius} \PY{o}{=} \PY{n}{radii}\PY{p}{,} \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{n}{colors}\PY{p}{,} \PY{n}{fill\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        
+        \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    \section{Optimization}\label{optimization}
+
+\subsubsection{One of the more important skills I've picked up, Python
+allows for calculating the type of advanced curve optimizations I used
+to do in school with Matlab, but with access to better data structures
+and file
+IO}\label{one-of-the-more-important-skills-ive-picked-up-python-allows-for-calculating-the-type-of-advanced-curve-optimizations-i-used-to-do-in-school-with-matlab-but-with-access-to-better-data-structures-and-file-io}
+
+\begin{itemize}
+\tightlist
+\item
+  purchase quantities
+\item
+  bundles of items
+
+  \begin{itemize}
+  \tightlist
+  \item
+    creating packages that maximize our profit
+  \item
+    getting the most dense carts for customers
+  \end{itemize}
+\item
+  labor allocations
+
+  \begin{itemize}
+  \tightlist
+  \item
+    CICs
+  \item
+    buildroom
+  \end{itemize}
+\item
+  account distribution
+\end{itemize}
+
+    Smash.GG Fantasy
+
+Given team budget and allowed to pick certain number of players. Very
+similar to auction leagues for fantasy football
+
+This is my team for the Norcal Regionals Event. I came in second:
+
+\begin{figure}
+\centering
+\includegraphics{Pictures/fantasy.jpg}
+\caption{NCR}
+\end{figure}
+
+    \section{I pick my teams by using linear optimization on player expected
+values}\label{i-pick-my-teams-by-using-linear-optimization-on-player-expected-values}
+
+\section{I composite expected values from prior results with some
+manipulation based on my anecdotal knowledge of
+players}\label{i-composite-expected-values-from-prior-results-with-some-manipulation-based-on-my-anecdotal-knowledge-of-players}
+
+\section{There are multiple types of these optimizers beyond linear, but
+linear works well for this problem space and compiles
+quickly}\label{there-are-multiple-types-of-these-optimizers-beyond-linear-but-linear-works-well-for-this-problem-space-and-compiles-quickly}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}This retroactively looked at the results from a major to calculate the best possible team}
+        \PY{c+c1}{\PYZsh{}I use the same code with almost zero changes to evaluate teams; it\PYZsq{}s immaterial to switch}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{pulp} \PY{k}{import} \PY{o}{*}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{players1.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{a} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{b} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+        \PY{n}{c} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}
+        \PY{n}{tbl} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{c}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+        
+        \PY{n}{fantasy\PYZus{}budget} \PY{o}{=} \PY{n}{pulp}\PY{o}{.}\PY{n}{LpProblem}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fantasy optimization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pulp}\PY{o}{.}\PY{n}{LpMaximize}\PY{p}{)}
+        
+        \PY{n}{players} \PY{o}{=} \PY{n}{tbl}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{pulp}\PY{o}{.}\PY{n}{LpVariable}\PY{o}{.}\PY{n}{dict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{players}\PY{p}{,} \PY{n}{lowBound} \PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{cat}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Integer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{price} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{players}\PY{p}{,} \PY{n}{tbl}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{ev} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{players}\PY{p}{,} \PY{n}{tbl}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{fantasy\PYZus{}budget} \PY{o}{+}\PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{[} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{price}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{ev}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{players}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{fantasy\PYZus{}budget} \PY{o}{+}\PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{[} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{price}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{players}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{1200}
+        
+        \PY{n}{fantasy\PYZus{}budget} \PY{o}{+}\PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{[} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{players}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{12}
+           
+        \PY{k}{for} \PY{n}{player} \PY{o+ow}{in} \PY{n}{players}\PY{p}{:}
+            \PY{n}{fantasy\PYZus{}budget} \PY{o}{+}\PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{player}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{price}\PY{p}{[}\PY{n}{player}\PY{p}{]}    
+          
+        \PY{k}{for} \PY{n}{player} \PY{o+ow}{in} \PY{n}{players}\PY{p}{:}
+            \PY{n}{fantasy\PYZus{}budget} \PY{o}{+}\PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{player}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{1}       
+        
+        \PY{n}{fantasy\PYZus{}budget}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{hld} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{player} \PY{o+ow}{in} \PY{n}{players}\PY{p}{:}
+            \PY{n}{t} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{player}\PY{p}{]}
+            \PY{n}{u} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{player}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{(}\PY{p}{)}
+            \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{t}\PY{p}{,} \PY{n}{u}\PY{p}{]}\PY{p}{)}
+            \PY{n}{hld}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{hld}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}  
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                   0    1
+0         x\_SonicFox  1.0
+1              x\_GO1  1.0
+2           x\_Dogura  1.0
+3         x\_NyChrisG  1.0
+4         x\_Kazunoko  1.0
+30        x\_TwiTchAy  1.0
+44  x\_PSYKENonTWITCH  1.0
+46            x\_Des!  1.0
+47            x\_Nice  1.0
+61      x\_Coolestred  1.0
+62   x\_Coffee\_prince  1.0
+63          x\_Shogun  1.0
+
+    \end{Verbatim}
+
+    \section{This team would have performed \textgreater{}25\% better than
+the single best human picked team even without bonus
+questions}\label{this-team-would-have-performed-25-better-than-the-single-best-human-picked-team-even-without-bonus-questions}
+
+\section{I of course got too clever for my own good and forced a player
+on my team and did not finish in prizes for this
+event}\label{i-of-course-got-too-clever-for-my-own-good-and-forced-a-player-on-my-team-and-did-not-finish-in-prizes-for-this-event}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}
+        
+        \PY{c+c1}{\PYZsh{} Youtube}
+        \PY{n}{HTML}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}iframe width=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{560}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ height=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{315}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ src=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{https://www.youtube.com/embed/vP65VVoUm6E}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ frameborder=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{0}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ allow=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{autoplay; encrypted\PYZhy{}media}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ allowfullscreen\PYZgt{}\PYZlt{}/iframe\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \section{Machine Learning}\label{machine-learning}
+
+    \section{Recently a friend invited me to do some Optical Character
+Recognition work to help process match VODs into a
+repository}\label{recently-a-friend-invited-me-to-do-some-optical-character-recognition-work-to-help-process-match-vods-into-a-repository}
+
+\subsection{The best players of the fighting game Guilty Gear live in
+Japan and play at the Mikado
+arcade}\label{the-best-players-of-the-fighting-game-guilty-gear-live-in-japan-and-play-at-the-mikado-arcade}
+
+\begin{figure}
+\centering
+\includegraphics{Pictures/mikado.jpg}
+\caption{mikado}
+\end{figure}
+
+\subsection{In the West we watch these VODs to learn how to play better.
+Unfortunately, what we get are unmarked videos of several hours in
+length that lack critical
+information}\label{in-the-west-we-watch-these-vods-to-learn-how-to-play-better.-unfortunately-what-we-get-are-unmarked-videos-of-several-hours-in-length-that-lack-critical-information}
+
+    \section{Relevant Information}\label{relevant-information}
+
+\begin{itemize}
+\tightlist
+\item
+  Characters
+\item
+  Match Start Time
+\item
+  Players
+\end{itemize}
+
+\subsubsection{Luckily for me work has been done on all 3, but the
+current solution to the third is a paid web service (Google Vision
+API)}\label{luckily-for-me-work-has-been-done-on-all-3-but-the-current-solution-to-the-third-is-a-paid-web-service-google-vision-api}
+
+\subsubsection{Also fortunately, all revelant information is available
+on one screen, even though quality is quite
+low}\label{also-fortunately-all-revelant-information-is-available-on-one-screen-even-though-quality-is-quite-low}
+
+\begin{figure}
+\centering
+\includegraphics{Pictures/screen3.jpg}
+\caption{screen}
+\end{figure}
+
+    \section{I was going to evaluate the relative performance between a
+local solution called PyTesseract to Google Vision API (which is world
+class
+performance)}\label{i-was-going-to-evaluate-the-relative-performance-between-a-local-solution-called-pytesseract-to-google-vision-api-which-is-world-class-performance}
+
+\subsubsection{Tesseract is pretty good, and the new version uses LSTM
+trained sets, but it's pretty far behind Google theoretically as google
+is applying very sophisticated pre-processing to a cluster trained model
+based on 8+ layer convolutional neural networks
+(CNN)}\label{tesseract-is-pretty-good-and-the-new-version-uses-lstm-trained-sets-but-its-pretty-far-behind-google-theoretically-as-google-is-applying-very-sophisticated-pre-processing-to-a-cluster-trained-model-based-on-8-layer-convolutional-neural-networks-cnn}
+
+\subsubsection{Process Image}\label{process-image}
+
+\begin{figure}
+\centering
+\includegraphics{Pictures/3656.png}
+\caption{proc}
+\end{figure}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k}{import} \PY{n}{Image}
+        \PY{k+kn}{import} \PY{n+nn}{pytesseract}
+        \PY{k+kn}{import} \PY{n+nn}{argparse}
+        \PY{k+kn}{import} \PY{n+nn}{cv2}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        
+        \PY{n}{pytesseract}\PY{o}{.}\PY{n}{pytesseract}\PY{o}{.}\PY{n}{tesseract\PYZus{}cmd} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C:/Program Files (x86)/Tesseract\PYZhy{}OCR/tesseract.exe}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{ap} \PY{o}{=} \PY{n}{argparse}\PY{o}{.}\PY{n}{ArgumentParser}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ap}\PY{o}{.}\PY{n}{add\PYZus{}argument}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}i}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{required}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+        	\PY{n}{help}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{path to input image to be OCR}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ap}\PY{o}{.}\PY{n}{add\PYZus{}argument}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}p}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}preprocess}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{type}\PY{o}{=}\PY{n+nb}{str}\PY{p}{,} \PY{n}{default}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+        	\PY{n}{help}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type of preprocessing to be done}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{args} \PY{o}{=} \PY{n+nb}{vars}\PY{p}{(}\PY{n}{ap}\PY{o}{.}\PY{n}{parse\PYZus{}args}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}filename = os.path.join(skimage.data\PYZus{}dir, \PYZsq{}moon.png\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{}filename = \PYZsq{}C:/Users/Perry/Pictures/screen3.jpg\PYZsq{}}
+        \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1280}\PY{p}{,}\PY{l+m+mi}{720}\PY{p}{)}\PY{p}{,} \PY{n}{interpolation} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{INTER\PYZus{}AREA}\PY{p}{)}
+        \PY{n}{image2} \PY{o}{=} \PY{n}{image}\PY{p}{[}\PY{l+m+mi}{492}\PY{p}{:}\PY{l+m+mi}{524}\PY{p}{,} \PY{l+m+mi}{46}\PY{p}{:}\PY{l+m+mi}{409}\PY{p}{]}
+        \PY{n}{image} \PY{o}{=} \PY{n}{image}\PY{p}{[}\PY{l+m+mi}{480}\PY{p}{:}\PY{l+m+mi}{514}\PY{p}{,} \PY{l+m+mi}{825}\PY{p}{:}\PY{l+m+mi}{1118}\PY{p}{]}
+        \PY{n}{imagec} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{imagec} \PY{o}{=} \PY{n}{imagec}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}imagec = imagec.append(image2)}
+        \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+        
+        
+        \PY{k}{if} \PY{n}{args}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preprocess}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{thresh}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+        	\PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{threshold}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{l+m+mi}{140}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,}
+        		\PY{n}{cv2}\PY{o}{.}\PY{n}{THRESH\PYZus{}TOZERO}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{}| cv2.THRESH\PYZus{}OTSU)[1]}
+        
+        \PY{c+c1}{\PYZsh{} noise}
+        \PY{k}{elif} \PY{n}{args}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preprocess}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blur}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+        	\PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{medianBlur}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         
+        
+        \PY{n}{gray} \PY{o}{=} \PY{n}{util}\PY{o}{.}\PY{n}{invert}\PY{p}{(}\PY{n}{gray}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}gray = equalize\PYZus{}hist(gray)}
+        
+        \PY{n}{filename} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.png}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{getpid}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{n}{filename}\PY{p}{,} \PY{n}{gray}\PY{p}{)}
+        
+        
+        \PY{n}{text} \PY{o}{=} \PY{n}{pytesseract}\PY{o}{.}\PY{n}{image\PYZus{}to\PYZus{}string}\PY{p}{(}\PY{n}{Image}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{)}\PY{p}{,} \PY{n}{lang}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jpn+eng}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}, config=\PYZsq{}\PYZhy{}\PYZhy{}psm 10\PYZsq{})}
+        \PY{n}{os}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{filename}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{text}\PY{p}{)}
+         
+        \PY{c+c1}{\PYZsh{} show the output images}
+        \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{image}\PY{p}{)}
+        \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Output}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{gray}\PY{p}{)}
+        \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+usage: ipykernel\_launcher.py [-h] -i IMAGE [-p PREPROCESS]
+ipykernel\_launcher.py: error: the following arguments are required: -i/--image
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        An exception has occurred, use \%tb to see the full traceback.
+    
+
+        SystemExit: 2
+    
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Perry\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}Classification\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}IPython\textbackslash{}core\textbackslash{}interactiveshell.py:2918: UserWarning: To exit: use 'exit', 'quit', or Ctrl-D.
+  warn("To exit: use 'exit', 'quit', or Ctrl-D.", stacklevel=1)
+
+    \end{Verbatim}
+
+    \section{This is a command line application, so I can't run it in this
+notebook, but this is basically what it
+outputs}\label{this-is-a-command-line-application-so-i-cant-run-it-in-this-notebook-but-this-is-basically-what-it-outputs}
+
+\begin{figure}
+\centering
+\includegraphics{Pictures/days.jpg}
+\caption{days}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Text output for use in creating upload script
+\item
+  Unprocessed mask
+\item
+  Processed mask
+\end{itemize}
+
+    \subsubsection{How does this help
+Hatch?}\label{how-does-this-help-hatch}
+
+\subsubsection{Hatch has a paper process in order entry, or often has
+things written down that need to go into the CRM/ERP in text form that
+currently have to be typed
+in}\label{hatch-has-a-paper-process-in-order-entry-or-often-has-things-written-down-that-need-to-go-into-the-crmerp-in-text-form-that-currently-have-to-be-typed-in}
+
+\subsubsection{Current commercial solutions are usually poor performers
+or require API knowledge. I can cover the latter and enable use of
+Google and MS' world class systems (they are actually quite reasonable,
+a year of scanning forms for Hatch would probably cost less than
+10,000USD)}\label{current-commercial-solutions-are-usually-poor-performers-or-require-api-knowledge.-i-can-cover-the-latter-and-enable-use-of-google-and-ms-world-class-systems-they-are-actually-quite-reasonable-a-year-of-scanning-forms-for-hatch-would-probably-cost-less-than-10000usd}
+
+\subsubsection{It doesnt even matter if it's typed or handwritten; I
+have ML strategies for handling that because I can train datasets based
+on Hatch employee's handwriting which would
+significantly}\label{it-doesnt-even-matter-if-its-typed-or-handwritten-i-have-ml-strategies-for-handling-that-because-i-can-train-datasets-based-on-hatch-employees-handwriting-which-would-significantly}
+
+\subsubsection{I can't match Google's precision, but I can beat
+Tesseract by using my own CNNs. In fact, I've trained my own using one
+of
+these:}\label{i-cant-match-googles-precision-but-i-can-beat-tesseract-by-using-my-own-cnns.-in-fact-ive-trained-my-own-using-one-of-these}
+
+\begin{figure}
+\centering
+\includegraphics{Pictures/1080ti.jpg}
+\caption{teneighty}
+\end{figure}
+
+    \section{ML more generally}\label{ml-more-generally}
+
+    \subsection{So I've spent the last year on
+ML}\label{so-ive-spent-the-last-year-on-ml}
+
+\subsection{Specifically, I've done signal classification of EEG signals
+for the purposes of detecting seizures in real
+time}\label{specifically-ive-done-signal-classification-of-eeg-signals-for-the-purposes-of-detecting-seizures-in-real-time}
+
+\subsection{Considering how SSG works, ML may be the only way to
+approximate the correct order of SSG
+games.}\label{considering-how-ssg-works-ml-may-be-the-only-way-to-approximate-the-correct-order-of-ssg-games.}
+
+\subsection{Because I built SSG progress into a SQL table (i.e. a
+2-dimensional matrix), I can iteratively use each column to estimate the
+score kids would get on another
+game}\label{because-i-built-ssg-progress-into-a-sql-table-i.e.-a-2-dimensional-matrix-i-can-iteratively-use-each-column-to-estimate-the-score-kids-would-get-on-another-game}
+
+\subsection{Basically it's ripping off Netflix's recommendation system.
+It really doesn't matter what specific engine you use either as it's a
+pretty low-complexity problem, so you can use XGBoost or another tabular
+engine that runs quickly on CPUs to avoid additional hardware
+cost}\label{basically-its-ripping-off-netflixs-recommendation-system.-it-really-doesnt-matter-what-specific-engine-you-use-either-as-its-a-pretty-low-complexity-problem-so-you-can-use-xgboost-or-another-tabular-engine-that-runs-quickly-on-cpus-to-avoid-additional-hardware-cost}
+
+    \subsection{For what it's worth, the same thing can be applied to
+recommending items to customers based on the length of time since
+they've purchased. It would be stronger if Hatch had more proprietary
+stuff, but it should probably work out
+anyway}\label{for-what-its-worth-the-same-thing-can-be-applied-to-recommending-items-to-customers-based-on-the-length-of-time-since-theyve-purchased.-it-would-be-stronger-if-hatch-had-more-proprietary-stuff-but-it-should-probably-work-out-anyway}
+
+\subsection{TheDialer/Skynet could be improved with ML by updating
+estimators based on call
+success}\label{thedialerskynet-could-be-improved-with-ml-by-updating-estimators-based-on-call-success}
+
+\subsection{There could theoretically be a Dragon
+v3}\label{there-could-theoretically-be-a-dragon-v3}
+
+\subsection{Since my work has mainly been in classification, I would
+want to get ML based predictions of account Expected
+Values}\label{since-my-work-has-mainly-been-in-classification-i-would-want-to-get-ml-based-predictions-of-account-expected-values}
+
+    \section{Miscellaneous}\label{miscellaneous}
+
+\subsubsection{Image Classification}\label{image-classification}
+
+\subsubsection{Signal Processing
+specifically}\label{signal-processing-specifically}
+
+\subsubsection{Obviously I still have the skills to do reporting and
+tackle the same sort of SQL problems I did before (e.g. renewals revenue
+reporting)}\label{obviously-i-still-have-the-skills-to-do-reporting-and-tackle-the-same-sort-of-sql-problems-i-did-before-e.g.-renewals-revenue-reporting}
+
+\subsubsection{Questions?}\label{questions}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
