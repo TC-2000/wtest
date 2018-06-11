@@ -1,5 +1,5 @@
 
-![hello](Pictures/Adele-Hello.jpg)
+![Adele-Hello.jpg](attachment:Adele-Hello.jpg)
 
 # Topics
 + Data Presentation
